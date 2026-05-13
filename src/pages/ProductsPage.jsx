@@ -225,7 +225,7 @@ export default function ProductsPage({ dealsOnly = false }) {
                 Categories
               </span>
             </div>
-            <div className="mt-3 grid gap-2">
+            <div className="w-[80vw] overflow-x-scroll mt-3 grid gap-2 grid-flow-col lg:w-full lg:grid-flow-row">
               <Link
                 to={dealsOnly ? "/deals" : "/products"}
                 className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
