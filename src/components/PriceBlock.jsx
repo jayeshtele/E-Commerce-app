@@ -8,17 +8,17 @@ export default function PriceBlock({ product, size = 'md' }) {
   return (
     <div>
       <div className="flex flex-wrap items-baseline gap-2">
-        <span className={`${priceSize} font-black text-slate-950`}>
+        <span className={`${priceSize} font-black text-slate-50`}>
           {formatCurrency(discountedPrice)}
         </span>
         {hasDiscount && (
-          <span className="text-sm font-semibold text-slate-500 line-through">
+          <span className="text-sm font-semibold text-slate-400 line-through">
             {formatCurrency(product.price)}
           </span>
         )}
       </div>
       {hasDiscount && (
-        <p className="mt-1 text-sm font-extrabold text-[#a24936]">
+        <p className="mt-1 text-sm font-extrabold text-[#f59e0b]">
           {Math.round(product.discountPercentage)}% off
         </p>
       )}

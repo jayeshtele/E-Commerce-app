@@ -92,14 +92,14 @@ export default function ProductsPage({ dealsOnly = false }) {
   if (status === 'failed') {
     return (
       <section className="mx-auto max-w-3xl px-4 py-20 text-center">
-        <h1 className="text-3xl font-black text-slate-950">
+        <h1 className="text-3xl font-black text-slate-50">
           The product API is unavailable
         </h1>
-        <p className="mt-3 text-slate-600">{error}</p>
+        <p className="mt-3 text-slate-400">{error}</p>
         <button
           type="button"
           onClick={() => dispatch(fetchProducts())}
-          className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#12372a] px-6 text-sm font-black text-white"
+          className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0891b2] px-6 text-sm font-black text-white"
         >
           <RefreshCw size={18} />
           Retry
@@ -110,15 +110,15 @@ export default function ProductsPage({ dealsOnly = false }) {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-5 border-b border-slate-200 pb-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a24936]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f59e0b]">
             {dealsOnly ? 'Live deals' : 'Live catalog'}
           </p>
-          <h1 className="mt-2 text-4xl font-black tracking-normal text-slate-950">
+          <h1 className="mt-2 text-4xl font-black tracking-normal text-slate-50">
             {categorySlug ? formatCategory(categorySlug) : dealsOnly ? 'Deals' : 'All products'}
           </h1>
-          <p className="mt-2 text-sm font-semibold text-slate-600">
+          <p className="mt-2 text-sm font-semibold text-slate-400">
             Showing {filteredProducts.length} of {products.length} products
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function ProductsPage({ dealsOnly = false }) {
         <button
           type="button"
           onClick={() => dispatch(fetchProducts())}
-          className="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-5 text-sm font-black text-slate-800 shadow-sm transition hover:border-[#0f766e] hover:text-[#0f766e]"
+          className="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-full border border-white/10 bg-[#101010] px-5 text-sm font-black text-slate-200 shadow-sm transition hover:border-[#22d3ee] hover:text-[#22d3ee]"
         >
           <RefreshCw size={17} />
           Sync live catalog
@@ -134,14 +134,14 @@ export default function ProductsPage({ dealsOnly = false }) {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[18rem_1fr]">
-        <aside className="h-fit rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
+        <aside className="h-fit rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm">
           <div className="flex items-center gap-2">
-            <Filter className="text-[#0f766e]" size={20} />
-            <h2 className="text-lg font-black text-slate-950">Filters</h2>
+            <Filter className="text-[#22d3ee]" size={20} />
+            <h2 className="text-lg font-black text-slate-50">Filters</h2>
           </div>
 
           <label className="mt-5 block">
-            <span className="text-sm font-black text-slate-800">Search</span>
+            <span className="text-sm font-black text-slate-200">Search</span>
             <span className="relative mt-2 block">
               <Search
                 size={17}
@@ -158,18 +158,18 @@ export default function ProductsPage({ dealsOnly = false }) {
                     setSearchParams({})
                   }
                 }}
-                className="h-11 w-full rounded-2xl border border-slate-200 bg-[#fffaf1] pl-10 pr-3 text-sm font-semibold outline-none focus:border-[#0f766e]"
+                className="h-11 w-full rounded-2xl border border-white/10 bg-[#0a0a0a] pl-10 pr-3 text-sm font-semibold outline-none focus:border-[#22d3ee]"
                 placeholder="Search catalog"
               />
             </span>
           </label>
 
           <label className="mt-5 block">
-            <span className="text-sm font-black text-slate-800">Sort</span>
+            <span className="text-sm font-black text-slate-200">Sort</span>
             <select
               value={sortBy}
               onChange={(event) => setSortBy(event.target.value)}
-              className="mt-2 h-11 w-full rounded-2xl border border-slate-200 bg-[#fffaf1] px-3 text-sm font-bold outline-none focus:border-[#0f766e]"
+              className="mt-2 h-11 w-full rounded-2xl border border-white/10 bg-[#0a0a0a] px-3 text-sm font-bold outline-none focus:border-[#22d3ee]"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -181,9 +181,9 @@ export default function ProductsPage({ dealsOnly = false }) {
 
           <div className="mt-5">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-black text-slate-800">Max price</span>
-              <span className="text-sm font-black text-[#a24936]">
-                {formatCurrency(maxPrice)}
+              <span className="text-sm font-black text-slate-200">Max price</span>
+              <span className="text-sm font-black text-[#f59e0b]">
+                {formatCurrency(effectiveMaxPrice)}
               </span>
             </div>
             <input
@@ -192,32 +192,32 @@ export default function ProductsPage({ dealsOnly = false }) {
               max={highestPrice || 50000}
               value={effectiveMaxPrice || 0}
               onChange={(event) => setMaxPrice(Number(event.target.value))}
-              className="mt-3 w-full accent-[#0f766e]"
+              className="mt-3 w-full accent-[#22d3ee]"
             />
           </div>
 
-          <label className="mt-5 flex items-center gap-3 rounded-2xl bg-[#fffaf1] p-3 text-sm font-bold text-slate-700">
+          <label className="mt-5 flex items-center gap-3 rounded-2xl bg-[#0a0a0a] p-3 text-sm font-bold text-slate-300">
             <input
               type="checkbox"
               checked={inStockOnly}
               onChange={(event) => setInStockOnly(event.target.checked)}
-              className="h-4 w-4 accent-[#0f766e]"
+              className="h-4 w-4 accent-[#22d3ee]"
             />
             In-stock items only
           </label>
 
           <div className="mt-5">
             <div className="flex items-center gap-2">
-              <SlidersHorizontal size={18} className="text-[#a24936]" />
-              <span className="text-sm font-black text-slate-800">Categories</span>
+              <SlidersHorizontal size={18} className="text-[#f59e0b]" />
+              <span className="text-sm font-black text-slate-200">Categories</span>
             </div>
-            <div className="mt-3 grid gap-2">
+            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid lg:px-0 lg:pb-0">
               <Link
                 to={dealsOnly ? '/deals' : '/products'}
-                className={`rounded-2xl px-3 py-2 text-sm font-bold ${
+                className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
                   selectedCategory === 'all'
-                    ? 'bg-[#12372a] text-white'
-                    : 'bg-[#fffaf1] text-slate-700'
+                    ? 'bg-[#0891b2] text-white'
+                    : 'bg-[#0a0a0a] text-slate-300'
                 }`}
               >
                 All categories
@@ -229,10 +229,10 @@ export default function ProductsPage({ dealsOnly = false }) {
                   <Link
                     key={slug}
                     to={`/category/${slug}`}
-                    className={`rounded-2xl px-3 py-2 text-sm font-bold ${
+                    className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
                       selectedCategory === slug
-                        ? 'bg-[#12372a] text-white'
-                        : 'bg-[#fffaf1] text-slate-700'
+                        ? 'bg-[#0891b2] text-white'
+                        : 'bg-[#0a0a0a] text-slate-300'
                     }`}
                   >
                     {formatCategory(slug)}

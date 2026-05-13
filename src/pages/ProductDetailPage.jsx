@@ -75,7 +75,7 @@ export default function ProductDetailPage() {
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <Link
         to="/products"
-        className="inline-flex items-center gap-2 text-sm font-black text-[#0f766e]"
+        className="inline-flex items-center gap-2 text-sm font-black text-[#22d3ee]"
       >
         <ChevronLeft size={18} />
         Back to products
@@ -93,10 +93,10 @@ export default function ProductDetailPage() {
                   onClick={() =>
                     setImageChoice({ productId: selectedProduct.id, image })
                   }
-                  className={`h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-white ${
+                  className={`h-20 w-20 shrink-0 overflow-hidden rounded-2xl border bg-[#101010] ${
                     selectedImage === image
-                      ? 'border-[#0f766e] ring-4 ring-[#0f766e]/15'
-                      : 'border-slate-200'
+                      ? 'border-[#22d3ee] ring-4 ring-[#22d3ee]/15'
+                      : 'border-white/10'
                   }`}
                 >
                   <img
@@ -108,7 +108,7 @@ export default function ProductDetailPage() {
               ))}
           </div>
 
-          <div className="grid min-h-[26rem] place-items-center overflow-hidden rounded-[2rem] border border-slate-200 bg-[#f3eadb]">
+          <div className="grid min-h-[26rem] place-items-center overflow-hidden rounded-[2rem] border border-white/10 bg-[#151515]">
             <img
               src={selectedImage}
               alt={selectedProduct.title}
@@ -119,32 +119,32 @@ export default function ProductDetailPage() {
 
         <div>
           <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-[#12372a] px-3 py-1 text-xs font-black uppercase tracking-wide text-white">
+            <span className="rounded-full bg-[#0891b2] px-3 py-1 text-xs font-black uppercase tracking-wide text-white">
               {formatCategory(selectedProduct.category)}
             </span>
-            <span className="rounded-full bg-[#fff0df] px-3 py-1 text-xs font-black uppercase tracking-wide text-[#a24936]">
+            <span className="rounded-full bg-amber-400/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[#f59e0b]">
               {stockTone}
             </span>
           </div>
 
-          <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-[#0f766e]">
+          <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-[#22d3ee]">
             {selectedProduct.brand || 'Nova Select'}
           </p>
-          <h1 className="mt-2 text-4xl font-black leading-tight tracking-normal text-slate-950">
+          <h1 className="mt-2 text-4xl font-black leading-tight tracking-normal text-slate-50">
             {selectedProduct.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <RatingStars rating={selectedProduct.rating} />
-            <span className="text-sm font-bold text-slate-500">
+            <span className="text-sm font-bold text-slate-400">
               SKU {selectedProduct.sku}
             </span>
           </div>
 
-          <p className="mt-5 text-base leading-8 text-slate-600">
+          <p className="mt-5 text-base leading-8 text-slate-400">
             {selectedProduct.description}
           </p>
 
-          <div className="mt-6 rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm">
             <PriceBlock product={selectedProduct} size="lg" />
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <QuantityStepper
@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
               <button
                 type="button"
                 onClick={() => dispatch(addToCart(selectedProduct, safeQuantity))}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#12372a] px-6 text-sm font-black text-white transition hover:bg-[#0f766e] sm:flex-none"
+                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#0891b2] px-6 text-sm font-black text-white transition hover:bg-[#22d3ee] sm:flex-none"
               >
                 <ShoppingCart size={18} />
                 Add to cart
@@ -163,7 +163,7 @@ export default function ProductDetailPage() {
               <button
                 type="button"
                 aria-label="Save product"
-                className="grid h-12 w-12 place-items-center rounded-full border border-slate-200 text-slate-700"
+                className="grid h-12 w-12 place-items-center rounded-full border border-white/10 text-slate-300"
               >
                 <Heart size={19} />
               </button>
@@ -193,9 +193,9 @@ export default function ProductDetailPage() {
             />
           </div>
 
-          <div className="mt-5 rounded-[1.75rem] border border-slate-200 bg-white p-5">
-            <h2 className="flex items-center gap-2 text-lg font-black text-slate-950">
-              <Ruler size={20} className="text-[#a24936]" />
+          <div className="mt-5 rounded-[1.75rem] border border-white/10 bg-[#101010] p-5">
+            <h2 className="flex items-center gap-2 text-lg font-black text-slate-50">
+              <Ruler size={20} className="text-[#f59e0b]" />
               Product specifics
             </h2>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
@@ -217,8 +217,8 @@ export default function ProductDetailPage() {
       {selectedProduct.reviews?.length > 0 && (
         <section className="mt-12">
           <div className="mb-5 flex items-center gap-2">
-            <BadgeCheck className="text-[#0f766e]" size={22} />
-            <h2 className="text-2xl font-black text-slate-950">
+            <BadgeCheck className="text-[#22d3ee]" size={22} />
+            <h2 className="text-2xl font-black text-slate-50">
               Customer reviews
             </h2>
           </div>
@@ -226,13 +226,13 @@ export default function ProductDetailPage() {
             {selectedProduct.reviews.map((review) => (
               <article
                 key={`${review.reviewerEmail}-${review.comment}`}
-                className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
+                className="rounded-[1.5rem] border border-white/10 bg-[#101010] p-5 shadow-sm"
               >
                 <RatingStars rating={review.rating} compact />
-                <p className="mt-3 text-sm leading-6 text-slate-700">
+                <p className="mt-3 text-sm leading-6 text-slate-300">
                   {review.comment}
                 </p>
-                <p className="mt-4 text-sm font-black text-slate-950">
+                <p className="mt-4 text-sm font-black text-slate-50">
                   {review.reviewerName}
                 </p>
               </article>
@@ -243,7 +243,7 @@ export default function ProductDetailPage() {
 
       {relatedProducts.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-5 text-2xl font-black text-slate-950">
+          <h2 className="mb-5 text-2xl font-black text-slate-50">
             More from {formatCategory(selectedProduct.category)}
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -259,12 +259,12 @@ export default function ProductDetailPage() {
 
 function DetailPill({ icon: Icon, label, value }) {
   return (
-    <div className="rounded-[1.25rem] border border-slate-200 bg-white p-4">
-      <Icon className="text-[#0f766e]" size={20} />
-      <p className="mt-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500">
+    <div className="rounded-[1.25rem] border border-white/10 bg-[#101010] p-4">
+      <Icon className="text-[#22d3ee]" size={20} />
+      <p className="mt-3 text-xs font-black uppercase tracking-[0.16em] text-slate-400">
         {label}
       </p>
-      <p className="mt-1 text-sm font-black text-slate-950">{value}</p>
+      <p className="mt-1 text-sm font-black text-slate-50">{value}</p>
     </div>
   )
 }
@@ -273,9 +273,9 @@ function Spec({ label, value }) {
   if (!value) return null
 
   return (
-    <div className="flex justify-between gap-4 border-b border-slate-100 pb-2">
-      <dt className="font-semibold text-slate-500">{label}</dt>
-      <dd className="text-right font-black text-slate-900">{value}</dd>
+    <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
+      <dt className="font-semibold text-slate-400">{label}</dt>
+      <dd className="text-right font-black text-slate-100">{value}</dd>
     </div>
   )
 }

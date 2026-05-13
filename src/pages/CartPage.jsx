@@ -27,11 +27,11 @@ export default function CartPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-2 border-b border-slate-200 pb-6">
-        <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a24936]">
+      <div className="flex flex-col gap-2 border-b border-white/10 pb-6">
+        <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f59e0b]">
           Cart
         </p>
-        <h1 className="text-4xl font-black tracking-normal text-slate-950">
+        <h1 className="text-4xl font-black tracking-normal text-slate-50">
           {items.length} item{items.length === 1 ? '' : 's'} in your bag
         </h1>
       </div>
@@ -41,11 +41,11 @@ export default function CartPage() {
           {items.map((item) => (
             <article
               key={item.id}
-              className="grid gap-4 rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-[9rem_1fr] sm:p-5"
+              className="grid gap-4 rounded-[1.75rem] border border-white/10 bg-[#101010] p-4 shadow-sm sm:grid-cols-[9rem_1fr] sm:p-5"
             >
               <Link
                 to={`/product/${item.id}`}
-                className="grid aspect-square place-items-center rounded-[1.25rem] bg-[#f3eadb]"
+                className="grid aspect-square place-items-center rounded-[1.25rem] bg-[#151515]"
               >
                 <img
                   src={item.thumbnail}
@@ -57,16 +57,16 @@ export default function CartPage() {
               <div className="min-w-0">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0">
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#0f766e]">
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#22d3ee]">
                       {item.brand || formatCategory(item.category)}
                     </p>
                     <Link
                       to={`/product/${item.id}`}
-                      className="mt-1 block text-xl font-black text-slate-950 hover:text-[#0f766e]"
+                      className="mt-1 block text-xl font-black text-slate-50 hover:text-[#22d3ee]"
                     >
                       {item.title}
                     </Link>
-                    <p className="mt-2 text-sm font-semibold text-slate-500">
+                    <p className="mt-2 text-sm font-semibold text-slate-400">
                       {item.shippingInformation} | {item.returnPolicy}
                     </p>
                   </div>
@@ -75,7 +75,7 @@ export default function CartPage() {
                     type="button"
                     aria-label={`Remove ${item.title}`}
                     onClick={() => dispatch(removeFromCart(item.id))}
-                    className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 text-slate-500 transition hover:border-[#a24936] hover:text-[#a24936]"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-white/10 text-slate-400 transition hover:border-[#f59e0b] hover:text-[#f59e0b]"
                   >
                     <Trash2 size={18} />
                   </button>
@@ -90,10 +90,10 @@ export default function CartPage() {
                     }
                   />
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-slate-500">
+                    <p className="text-sm font-semibold text-slate-400">
                       {formatCurrency(getDiscountedPrice(item))} each
                     </p>
-                    <p className="text-2xl font-black text-slate-950">
+                    <p className="text-2xl font-black text-slate-50">
                       {formatCurrency(getDiscountedPrice(item) * item.quantity)}
                     </p>
                   </div>
@@ -108,13 +108,13 @@ export default function CartPage() {
             <>
               <Link
                 to="/checkout"
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#12372a] px-5 text-sm font-black text-white transition hover:bg-[#0f766e]"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0891b2] px-5 text-sm font-black text-white transition hover:bg-[#22d3ee]"
               >
                 <ShoppingBag size={18} />
                 Proceed to checkout
               </Link>
               {summary.shipping === 0 && (
-                <p className="mt-3 text-center text-sm font-bold text-[#0f766e]">
+                <p className="mt-3 text-center text-sm font-bold text-[#22d3ee]">
                   Free shipping unlocked
                 </p>
               )}

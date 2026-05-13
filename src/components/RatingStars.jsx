@@ -11,13 +11,13 @@ export default function RatingStars({ rating = 0, compact = false }) {
           size={compact ? 14 : 16}
           className={
             index < filledStars
-              ? 'fill-[#f4b740] text-[#f4b740]'
+              ? 'fill-[#facc15] text-[#facc15]'
               : 'fill-slate-200 text-slate-200'
           }
         />
       ))}
       <span
-        className={`ml-1 font-bold text-slate-700 ${
+        className={`ml-1 font-bold text-slate-300 ${
           compact ? 'text-xs' : 'text-sm'
         }`}
       >

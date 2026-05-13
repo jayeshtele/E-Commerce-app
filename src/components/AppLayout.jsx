@@ -23,7 +23,7 @@ export default function AppLayout() {
   }, [categoryStatus, dispatch])
 
   return (
-    <div className="min-h-screen bg-[#f6f2ea] text-slate-950">
+    <div className="min-h-screen bg-[#050505] text-slate-50">
       <Header />
       <main>
         <Outlet />

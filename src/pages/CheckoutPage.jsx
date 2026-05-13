@@ -47,11 +47,11 @@ export default function CheckoutPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="border-b border-slate-200 pb-6">
-        <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a24936]">
+      <div className="border-b border-white/10 pb-6">
+        <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f59e0b]">
           Checkout
         </p>
-        <h1 className="mt-2 text-4xl font-black tracking-normal text-slate-950">
+        <h1 className="mt-2 text-4xl font-black tracking-normal text-slate-50">
           Finish your order
         </h1>
       </div>
@@ -122,8 +122,8 @@ export default function CheckoutPage() {
                   key={method}
                   className={`rounded-[1.25rem] border p-4 text-sm font-black capitalize ${
                     form.paymentMethod === method
-                      ? 'border-[#0f766e] bg-emerald-50 text-[#0f766e]'
-                      : 'border-slate-200 bg-white text-slate-700'
+                      ? 'border-[#22d3ee] bg-emerald-400/10 text-[#22d3ee]'
+                      : 'border-white/10 bg-[#101010] text-slate-300'
                   }`}
                 >
                   <input
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                     value={method}
                     checked={form.paymentMethod === method}
                     onChange={updateField}
-                    className="mr-2 accent-[#0f766e]"
+                    className="mr-2 accent-[#22d3ee]"
                   />
                   {method === 'upi' ? 'UPI' : method}
                 </label>
@@ -145,22 +145,22 @@ export default function CheckoutPage() {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="grid grid-cols-[4.5rem_1fr_auto] items-center gap-3 rounded-[1.25rem] bg-[#fffaf1] p-3"
+                  className="grid grid-cols-[4.5rem_1fr_auto] items-center gap-3 rounded-[1.25rem] bg-[#0a0a0a] p-3"
                 >
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    className="h-16 w-16 rounded-2xl bg-[#f3eadb] object-contain p-2"
+                    className="h-16 w-16 rounded-2xl bg-[#151515] object-contain p-2"
                   />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-black text-slate-950">
+                    <p className="truncate text-sm font-black text-slate-50">
                       {item.title}
                     </p>
-                    <p className="text-xs font-bold text-slate-500">
+                    <p className="text-xs font-bold text-slate-400">
                       Qty {item.quantity} | {item.shippingInformation}
                     </p>
                   </div>
-                  <p className="text-sm font-black text-slate-950">
+                  <p className="text-sm font-black text-slate-50">
                     {formatCurrency(getDiscountedPrice(item) * item.quantity)}
                   </p>
                 </div>
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            className="inline-flex h-13 min-h-13 items-center justify-center gap-2 rounded-full bg-[#12372a] px-6 py-4 text-sm font-black text-white transition hover:bg-[#0f766e]"
+            className="inline-flex h-13 min-h-13 items-center justify-center gap-2 rounded-full bg-[#0891b2] px-6 py-4 text-sm font-black text-white transition hover:bg-[#22d3ee]"
           >
             <ShieldCheck size={18} />
             Place order
@@ -185,9 +185,9 @@ export default function CheckoutPage() {
 
 function CheckoutPanel({ icon: Icon, title, children }) {
   return (
-    <section className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 className="flex items-center gap-2 text-xl font-black text-slate-950">
-        <Icon size={21} className="text-[#0f766e]" />
+    <section className="rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-xl font-black text-slate-50">
+        <Icon size={21} className="text-[#22d3ee]" />
         {title}
       </h2>
       <div className="mt-5">{children}</div>
@@ -206,7 +206,7 @@ function Input({
 }) {
   return (
     <label className={wide ? 'sm:col-span-2' : undefined}>
-      <span className="text-sm font-black text-slate-800">{label}</span>
+      <span className="text-sm font-black text-slate-200">{label}</span>
       <input
         required
         type={type === 'email' ? 'text' : type}
@@ -215,7 +215,7 @@ function Input({
         value={value}
         onChange={onChange}
         autoComplete={autoComplete}
-        className="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-[#fffaf1] px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-[#0f766e] focus:bg-white"
+        className="mt-2 h-12 w-full rounded-2xl border border-white/10 bg-[#0a0a0a] px-4 text-sm font-semibold text-slate-100 outline-none transition focus:border-[#22d3ee] focus:bg-[#101010]"
       />
     </label>
   )

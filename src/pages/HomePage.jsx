@@ -45,14 +45,14 @@ export default function HomePage() {
   if (status === 'failed') {
     return (
       <section className="mx-auto max-w-3xl px-4 py-20 text-center">
-        <h1 className="text-3xl font-black text-slate-950">
+        <h1 className="text-3xl font-black text-slate-50">
           The live catalog did not load
         </h1>
-        <p className="mt-3 text-slate-600">{error}</p>
+        <p className="mt-3 text-slate-400">{error}</p>
         <button
           type="button"
           onClick={() => dispatch(fetchProducts())}
-          className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#12372a] px-6 text-sm font-black text-white"
+          className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0891b2] px-6 text-sm font-black text-white"
         >
           <RefreshCw size={18} />
           Sync catalog
@@ -63,31 +63,31 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="bg-[#fffaf1]">
+      <section className="bg-[#0a0a0a]">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-12">
           <div className="flex flex-col justify-center">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#f4c95d]/60 bg-white px-4 py-2 text-sm font-black text-[#a24936] shadow-sm">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#facc15]/60 bg-[#101010] px-4 py-2 text-sm font-black text-[#f59e0b] shadow-sm">
               <Flame size={16} />
               {products.length} live products
             </div>
-            <h1 className="mt-5 max-w-2xl text-4xl font-black leading-tight tracking-normal text-slate-950 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-2xl text-4xl font-black leading-tight tracking-normal text-slate-50 sm:text-5xl lg:text-6xl">
               Shop a richer marketplace with real product data.
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-slate-600">
+            <p className="mt-5 max-w-xl text-base leading-7 text-slate-400">
               Browse live categories, compare detailed listings, cart multiple
               items, and finish checkout with estimated delivery details.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 to="/products"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#12372a] px-6 text-sm font-black text-white transition hover:bg-[#0f766e]"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0891b2] px-6 text-sm font-black text-white transition hover:bg-[#22d3ee]"
               >
                 Start shopping
                 <ArrowRight size={18} />
               </Link>
               <Link
                 to="/deals"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 text-sm font-black text-slate-950 transition hover:border-[#a24936] hover:text-[#a24936]"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-[#101010] px-6 text-sm font-black text-slate-50 transition hover:border-[#f59e0b] hover:text-[#f59e0b]"
               >
                 <BadgePercent size={18} />
                 Today's deals
@@ -95,26 +95,26 @@ export default function HomePage() {
             </div>
 
             {featuredProduct && (
-              <div className="mt-8 rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                   <img
                     src={featuredProduct.thumbnail}
                     alt={featuredProduct.title}
-                    className="h-28 w-28 rounded-[1.25rem] bg-[#f3eadb] object-contain p-3"
+                    className="h-28 w-28 rounded-[1.25rem] bg-[#151515] object-contain p-3"
                   />
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-[#0f766e]">
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-[#22d3ee]">
                       Featured pick
                     </p>
                     <Link
                       to={`/product/${featuredProduct.id}`}
-                      className="mt-1 block truncate text-xl font-black text-slate-950 hover:text-[#0f766e]"
+                      className="mt-1 block truncate text-xl font-black text-slate-50 hover:text-[#22d3ee]"
                     >
                       {featuredProduct.title}
                     </Link>
                     <div className="mt-2 flex flex-wrap items-center gap-3">
                       <RatingStars rating={featuredProduct.rating} compact />
-                      <span className="text-sm font-bold text-slate-500">
+                      <span className="text-sm font-bold text-slate-400">
                         From {formatCurrency(getDiscountedPrice(featuredProduct))}
                       </span>
                     </div>
@@ -122,7 +122,7 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => dispatch(addToCart(featuredProduct, 1))}
-                    className="inline-flex h-11 items-center justify-center rounded-full bg-[#f4c95d] px-5 text-sm font-black text-slate-950"
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-[#facc15] px-5 text-sm font-black text-[#050505]"
                   >
                     Add
                   </button>
@@ -136,11 +136,11 @@ export default function HomePage() {
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
-                className={`group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${
+                className={`group overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#101010] shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${
                   index === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
                 }`}
               >
-                <div className="grid aspect-square place-items-center bg-[#f3eadb]">
+                <div className="grid aspect-square place-items-center bg-[#151515]">
                   <img
                     src={product.thumbnail}
                     alt={product.title}
@@ -149,14 +149,14 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-4">
-                  <p className="truncate text-sm font-black text-slate-950">
+                  <p className="truncate text-sm font-black text-slate-50">
                     {product.title}
                   </p>
                   <div className="mt-2 flex items-center justify-between gap-2">
-                    <span className="text-sm font-black text-[#a24936]">
+                    <span className="text-sm font-black text-[#f59e0b]">
                       {Math.round(product.discountPercentage)}% off
                     </span>
-                    <Truck size={16} className="text-[#0f766e]" />
+                    <Truck size={16} className="text-[#22d3ee]" />
                   </div>
                 </div>
               </Link>
@@ -170,16 +170,16 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a24936]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f59e0b]">
               Price drops
             </p>
-            <h2 className="mt-2 text-3xl font-black text-slate-950">
+            <h2 className="mt-2 text-3xl font-black text-slate-50">
               Deals with deep detail
             </h2>
           </div>
           <Link
             to="/deals"
-            className="hidden items-center gap-2 text-sm font-black text-[#0f766e] sm:inline-flex"
+            className="hidden items-center gap-2 text-sm font-black text-[#22d3ee] sm:inline-flex"
           >
             More deals
             <ArrowRight size={17} />
@@ -194,10 +194,10 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-5">
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#0f766e]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#22d3ee]">
             Rated by shoppers
           </p>
-          <h2 className="mt-2 text-3xl font-black text-slate-950">
+          <h2 className="mt-2 text-3xl font-black text-slate-50">
             Premium picks across aisles
           </h2>
         </div>
