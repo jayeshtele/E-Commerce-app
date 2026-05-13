@@ -1,43 +1,46 @@
-import { Filter, RefreshCw, Search, SlidersHorizontal } from 'lucide-react'
-import { useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
-import EmptyState from '../components/EmptyState'
-import LoadingGrid from '../components/LoadingGrid'
-import ProductCard from '../components/ProductCard'
-import { fetchProducts } from '../features/products/productsSlice'
-import { formatCategory, formatCurrency } from '../utils/formatters'
+import { Filter, RefreshCw, Search, SlidersHorizontal } from "lucide-react";
+import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import EmptyState from "../components/EmptyState";
+import LoadingGrid from "../components/LoadingGrid";
+import ProductCard from "../components/ProductCard";
+import { fetchProducts } from "../features/products/productsSlice";
+import { formatCategory, formatCurrency } from "../utils/formatters";
 
 const sortOptions = [
-  { value: 'featured', label: 'Featured' },
-  { value: 'price-low', label: 'Price: low to high' },
-  { value: 'price-high', label: 'Price: high to low' },
-  { value: 'rating', label: 'Top rated' },
-  { value: 'discount', label: 'Biggest discount' },
-]
+  { value: "featured", label: "Featured" },
+  { value: "price-low", label: "Price: low to high" },
+  { value: "price-high", label: "Price: high to low" },
+  { value: "rating", label: "Top rated" },
+  { value: "discount", label: "Biggest discount" },
+];
 
 export default function ProductsPage({ dealsOnly = false }) {
-  const dispatch = useDispatch()
-  const { categorySlug } = useParams()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get('q') ?? ''
-  const { items: products, categories, status, error } = useSelector(
-    (state) => state.products,
-  )
-  const selectedCategory = categorySlug || 'all'
-  const [sortBy, setSortBy] = useState(dealsOnly ? 'discount' : 'featured')
-  const [maxPrice, setMaxPrice] = useState(null)
-  const [inStockOnly, setInStockOnly] = useState(false)
+  const dispatch = useDispatch();
+  const { categorySlug } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") ?? "";
+  const {
+    items: products,
+    categories,
+    status,
+    error,
+  } = useSelector((state) => state.products);
+  const selectedCategory = categorySlug || "all";
+  const [sortBy, setSortBy] = useState(dealsOnly ? "discount" : "featured");
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [inStockOnly, setInStockOnly] = useState(false);
 
   const highestPrice = useMemo(
     () => Math.ceil(Math.max(...products.map((product) => product.price), 0)),
     [products],
-  )
+  );
 
-  const effectiveMaxPrice = maxPrice ?? highestPrice
+  const effectiveMaxPrice = maxPrice ?? highestPrice;
 
   const filteredProducts = useMemo(() => {
-    const normalizedSearch = query.trim().toLowerCase()
+    const normalizedSearch = query.trim().toLowerCase();
 
     return [...products]
       .filter((product) => {
@@ -46,13 +49,13 @@ export default function ProductsPage({ dealsOnly = false }) {
           product.title.toLowerCase().includes(normalizedSearch) ||
           product.description.toLowerCase().includes(normalizedSearch) ||
           product.category.toLowerCase().includes(normalizedSearch) ||
-          product.brand?.toLowerCase().includes(normalizedSearch)
+          product.brand?.toLowerCase().includes(normalizedSearch);
 
         const matchesCategory =
-          selectedCategory === 'all' || product.category === selectedCategory
-        const matchesDeal = !dealsOnly || product.discountPercentage >= 10
-        const matchesPrice = product.price <= effectiveMaxPrice
-        const matchesStock = !inStockOnly || product.stock > 0
+          selectedCategory === "all" || product.category === selectedCategory;
+        const matchesDeal = !dealsOnly || product.discountPercentage >= 10;
+        const matchesPrice = product.price <= effectiveMaxPrice;
+        const matchesStock = !inStockOnly || product.stock > 0;
 
         return (
           matchesSearch &&
@@ -60,17 +63,20 @@ export default function ProductsPage({ dealsOnly = false }) {
           matchesDeal &&
           matchesPrice &&
           matchesStock
-        )
+        );
       })
       .sort((first, second) => {
-        if (sortBy === 'price-low') return first.price - second.price
-        if (sortBy === 'price-high') return second.price - first.price
-        if (sortBy === 'rating') return second.rating - first.rating
-        if (sortBy === 'discount') {
-          return second.discountPercentage - first.discountPercentage
+        if (sortBy === "price-low") return first.price - second.price;
+        if (sortBy === "price-high") return second.price - first.price;
+        if (sortBy === "rating") return second.rating - first.rating;
+        if (sortBy === "discount") {
+          return second.discountPercentage - first.discountPercentage;
         }
-        return second.rating * second.discountPercentage - first.rating * first.discountPercentage
-      })
+        return (
+          second.rating * second.discountPercentage -
+          first.rating * first.discountPercentage
+        );
+      });
   }, [
     dealsOnly,
     effectiveMaxPrice,
@@ -79,17 +85,17 @@ export default function ProductsPage({ dealsOnly = false }) {
     query,
     selectedCategory,
     sortBy,
-  ])
+  ]);
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <LoadingGrid count={12} />
       </div>
-    )
+    );
   }
 
-  if (status === 'failed') {
+  if (status === "failed") {
     return (
       <section className="mx-auto max-w-3xl px-4 py-20 text-center">
         <h1 className="text-3xl font-black text-slate-50">
@@ -105,7 +111,7 @@ export default function ProductsPage({ dealsOnly = false }) {
           Retry
         </button>
       </section>
-    )
+    );
   }
 
   return (
@@ -113,10 +119,14 @@ export default function ProductsPage({ dealsOnly = false }) {
       <div className="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f59e0b]">
-            {dealsOnly ? 'Live deals' : 'Live catalog'}
+            {dealsOnly ? "Live deals" : "Live catalog"}
           </p>
           <h1 className="mt-2 text-4xl font-black tracking-normal text-slate-50">
-            {categorySlug ? formatCategory(categorySlug) : dealsOnly ? 'Deals' : 'All products'}
+            {categorySlug
+              ? formatCategory(categorySlug)
+              : dealsOnly
+                ? "Deals"
+                : "All products"}
           </h1>
           <p className="mt-2 text-sm font-semibold text-slate-400">
             Showing {filteredProducts.length} of {products.length} products
@@ -151,11 +161,11 @@ export default function ProductsPage({ dealsOnly = false }) {
                 type="search"
                 value={query}
                 onChange={(event) => {
-                  const nextQuery = event.target.value
+                  const nextQuery = event.target.value;
                   if (nextQuery.trim()) {
-                    setSearchParams({ q: nextQuery })
+                    setSearchParams({ q: nextQuery });
                   } else {
-                    setSearchParams({})
+                    setSearchParams({});
                   }
                 }}
                 className="h-11 w-full rounded-2xl border border-white/10 bg-[#0a0a0a] pl-10 pr-3 text-sm font-semibold outline-none focus:border-[#22d3ee]"
@@ -181,7 +191,9 @@ export default function ProductsPage({ dealsOnly = false }) {
 
           <div className="mt-5">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-black text-slate-200">Max price</span>
+              <span className="text-sm font-black text-slate-200">
+                Max price
+              </span>
               <span className="text-sm font-black text-[#f59e0b]">
                 {formatCurrency(effectiveMaxPrice)}
               </span>
@@ -209,21 +221,24 @@ export default function ProductsPage({ dealsOnly = false }) {
           <div className="mt-5">
             <div className="flex items-center gap-2">
               <SlidersHorizontal size={18} className="text-[#f59e0b]" />
-              <span className="text-sm font-black text-slate-200">Categories</span>
+              <span className="text-sm font-black text-slate-200">
+                Categories
+              </span>
             </div>
-            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid lg:px-0 lg:pb-0">
+            <div className="mt-3 grid gap-2">
               <Link
-                to={dealsOnly ? '/deals' : '/products'}
+                to={dealsOnly ? "/deals" : "/products"}
                 className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
-                  selectedCategory === 'all'
-                    ? 'bg-[#0891b2] text-white'
-                    : 'bg-[#0a0a0a] text-slate-300'
+                  selectedCategory === "all"
+                    ? "bg-[#0891b2] text-white"
+                    : "bg-[#0a0a0a] text-slate-300"
                 }`}
               >
                 All categories
               </Link>
               {categories.map((category) => {
-                const slug = typeof category === 'string' ? category : category.slug
+                const slug =
+                  typeof category === "string" ? category : category.slug;
 
                 return (
                   <Link
@@ -231,13 +246,13 @@ export default function ProductsPage({ dealsOnly = false }) {
                     to={`/category/${slug}`}
                     className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
                       selectedCategory === slug
-                        ? 'bg-[#0891b2] text-white'
-                        : 'bg-[#0a0a0a] text-slate-300'
+                        ? "bg-[#0891b2] text-white"
+                        : "bg-[#0a0a0a] text-slate-300"
                     }`}
                   >
                     {formatCategory(slug)}
                   </Link>
-                )
+                );
               })}
             </div>
           </div>
@@ -263,5 +278,5 @@ export default function ProductsPage({ dealsOnly = false }) {
         </div>
       </div>
     </section>
-  )
+  );
 }
