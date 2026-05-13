@@ -144,7 +144,7 @@ export default function ProductsPage({ dealsOnly = false }) {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[18rem_1fr]">
-        <aside className="h-fit rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm">
+        <aside className="h-fit rounded-[1.75rem] border border-white/10 bg-[#101010] p-5 shadow-sm overflow-x-scroll lg:overflow-x-hidden">
           <div className="flex items-center gap-2">
             <Filter className="text-[#22d3ee]" size={20} />
             <h2 className="text-lg font-black text-slate-50">Filters</h2>
@@ -225,7 +225,7 @@ export default function ProductsPage({ dealsOnly = false }) {
                 Categories
               </span>
             </div>
-            <div className="w-[80vw] overflow-x-scroll mt-3 grid gap-2 grid-flow-col lg:w-full lg:grid-flow-row">
+            <div className="mt-3 grid gap-2 grid-flow-col lg:grid-flow-row overflow-x-scroll lg:overflow-x-hidden">
               <Link
                 to={dealsOnly ? "/deals" : "/products"}
                 className={`shrink-0 whitespace-nowrap rounded-2xl px-3 py-2 text-sm font-bold lg:whitespace-normal ${
