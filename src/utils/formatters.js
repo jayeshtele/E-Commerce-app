@@ -1,10 +1,24 @@
 export const currencyFormatter = new Intl.NumberFormat('en-IN', {
   style: 'currency',
   currency: 'INR',
+  maximumFractionDigits: 2,
 })
 
-export function formatCurrency(value) {
-  return currencyFormatter.format(Number(value) || 0)
+export function convertUsdToInr(value, usdToInrRate) {
+  const numericValue = Number(value)
+  const numericRate = Number(usdToInrRate)
+
+  if (!Number.isFinite(numericValue) || !Number.isFinite(numericRate)) {
+    return null
+  }
+
+  return numericValue * numericRate
+}
+
+export function formatCurrency(value, usdToInrRate) {
+  const convertedValue = convertUsdToInr(value, usdToInrRate)
+
+  return convertedValue === null ? '₹--' : currencyFormatter.format(convertedValue)
 }
 
 export function formatCategory(category = '') {

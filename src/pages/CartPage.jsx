@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import EmptyState from '../components/EmptyState'
 import OrderSummary from '../components/OrderSummary'
 import QuantityStepper from '../components/QuantityStepper'
+import { selectUsdToInrRate } from '../features/currency/currencySlice'
 import {
   selectCartItems,
   selectCartSummary,
@@ -15,6 +16,7 @@ export default function CartPage() {
   const dispatch = useDispatch()
   const items = useSelector(selectCartItems)
   const summary = useSelector(selectCartSummary)
+  const usdToInrRate = useSelector(selectUsdToInrRate)
 
   if (!items.length) {
     return (
@@ -91,10 +93,13 @@ export default function CartPage() {
                   />
                   <div className="text-right">
                     <p className="text-sm font-semibold text-slate-400">
-                      {formatCurrency(getDiscountedPrice(item))} each
+                      {formatCurrency(getDiscountedPrice(item), usdToInrRate)} each
                     </p>
                     <p className="text-2xl font-black text-slate-50">
-                      {formatCurrency(getDiscountedPrice(item) * item.quantity)}
+                      {formatCurrency(
+                        getDiscountedPrice(item) * item.quantity,
+                        usdToInrRate,
+                      )}
                     </p>
                   </div>
                 </div>

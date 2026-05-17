@@ -1,10 +1,12 @@
 import { ShieldCheck } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { selectCartSummary } from '../features/cart/cartSelectors'
+import { selectUsdToInrRate } from '../features/currency/currencySlice'
 import { formatCurrency } from '../utils/formatters'
 
 export default function OrderSummary({ action }) {
   const summary = useSelector(selectCartSummary)
+  const usdToInrRate = useSelector(selectUsdToInrRate)
 
   return (
     <aside className="rounded-[1.75rem] border border-white/10 bg-[#101010] p-6 shadow-sm shadow-black/5">
@@ -17,25 +19,27 @@ export default function OrderSummary({ action }) {
         <div className="flex justify-between gap-4 text-slate-400">
           <dt>Subtotal</dt>
           <dd className="font-bold text-slate-50">
-            {formatCurrency(summary.subtotal)}
+            {formatCurrency(summary.subtotal, usdToInrRate)}
           </dd>
         </div>
         <div className="flex justify-between gap-4 text-slate-400">
           <dt>Product savings</dt>
           <dd className="font-bold text-[#f59e0b]">
-            -{formatCurrency(summary.savings)}
+            -{formatCurrency(summary.savings, usdToInrRate)}
           </dd>
         </div>
         <div className="flex justify-between gap-4 text-slate-400">
           <dt>Shipping</dt>
           <dd className="font-bold text-slate-50">
-            {summary.shipping === 0 ? 'Free' : formatCurrency(summary.shipping)}
+            {summary.shipping === 0
+              ? 'Free'
+              : formatCurrency(summary.shipping, usdToInrRate)}
           </dd>
         </div>
         <div className="flex justify-between gap-4 text-slate-400">
           <dt>Estimated tax</dt>
           <dd className="font-bold text-slate-50">
-            {formatCurrency(summary.tax)}
+            {formatCurrency(summary.tax, usdToInrRate)}
           </dd>
         </div>
       </dl>
@@ -44,7 +48,7 @@ export default function OrderSummary({ action }) {
         <div className="flex items-center justify-between gap-4">
           <span className="text-base font-black text-slate-50">Total</span>
           <span className="text-2xl font-black text-slate-50">
-            {formatCurrency(summary.total)}
+            {formatCurrency(summary.total, usdToInrRate)}
           </span>
         </div>
       </div>

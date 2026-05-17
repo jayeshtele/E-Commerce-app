@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import EmptyState from '../components/EmptyState'
 import { selectLastOrder } from '../features/cart/cartSelectors'
+import { selectUsdToInrRate } from '../features/currency/currencySlice'
 import { formatCurrency, formatDate, getDiscountedPrice } from '../utils/formatters'
 
 export default function OrderSuccessPage() {
   const order = useSelector(selectLastOrder)
+  const currentUsdToInrRate = useSelector(selectUsdToInrRate)
 
   if (!order) {
     return (
@@ -16,6 +18,8 @@ export default function OrderSuccessPage() {
       />
     )
   }
+
+  const orderExchangeRate = order.exchangeRate ?? currentUsdToInrRate
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
@@ -47,7 +51,7 @@ export default function OrderSuccessPage() {
           <StatusCard
             icon={CalendarDays}
             label="Order total"
-            value={formatCurrency(order.total)}
+            value={formatCurrency(order.total, orderExchangeRate)}
           />
         </div>
       </div>
@@ -74,7 +78,10 @@ export default function OrderSuccessPage() {
                 </p>
               </div>
               <p className="text-sm font-black text-slate-50">
-                {formatCurrency(getDiscountedPrice(item) * item.quantity)}
+                {formatCurrency(
+                  getDiscountedPrice(item) * item.quantity,
+                  orderExchangeRate,
+                )}
               </p>
             </div>
           ))}

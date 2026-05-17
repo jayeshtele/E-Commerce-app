@@ -84,6 +84,7 @@ const cartSlice = createSlice({
       saveCart(state.items)
     },
     placeOrder(state, action) {
+      const { customer, exchangeRate } = action.payload
       const subtotal = state.items.reduce(
         (total, item) => total + item.price * item.quantity,
         0,
@@ -106,7 +107,8 @@ const cartSlice = createSlice({
       state.lastOrder = {
         id: `NV-${Math.floor(100000 + Math.random() * 900000)}`,
         items: state.items,
-        customer: action.payload,
+        customer,
+        exchangeRate,
         subtotal,
         savings,
         shipping,

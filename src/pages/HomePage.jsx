@@ -8,11 +8,13 @@ import PriceBlock from '../components/PriceBlock'
 import ProductCard from '../components/ProductCard'
 import RatingStars from '../components/RatingStars'
 import { addToCart } from '../features/cart/cartSlice'
+import { selectUsdToInrRate } from '../features/currency/currencySlice'
 import { fetchProducts } from '../features/products/productsSlice'
 import { formatCurrency, getDiscountedPrice } from '../utils/formatters'
 
 export default function HomePage() {
   const dispatch = useDispatch()
+  const usdToInrRate = useSelector(selectUsdToInrRate)
   const { items: products, categories, featuredProduct, status, error } = useSelector(
     (state) => state.products,
   )
@@ -115,7 +117,11 @@ export default function HomePage() {
                     <div className="mt-2 flex flex-wrap items-center gap-3">
                       <RatingStars rating={featuredProduct.rating} compact />
                       <span className="text-sm font-bold text-slate-400">
-                        From {formatCurrency(getDiscountedPrice(featuredProduct))}
+                        From{' '}
+                        {formatCurrency(
+                          getDiscountedPrice(featuredProduct),
+                          usdToInrRate,
+                        )}
                       </span>
                     </div>
                   </div>

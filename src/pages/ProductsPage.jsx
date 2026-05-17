@@ -5,6 +5,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import EmptyState from "../components/EmptyState";
 import LoadingGrid from "../components/LoadingGrid";
 import ProductCard from "../components/ProductCard";
+import { selectUsdToInrRate } from "../features/currency/currencySlice";
 import { fetchProducts } from "../features/products/productsSlice";
 import { formatCategory, formatCurrency } from "../utils/formatters";
 
@@ -18,6 +19,7 @@ const sortOptions = [
 
 export default function ProductsPage({ dealsOnly = false }) {
   const dispatch = useDispatch();
+  const usdToInrRate = useSelector(selectUsdToInrRate);
   const { categorySlug } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q") ?? "";
@@ -195,7 +197,7 @@ export default function ProductsPage({ dealsOnly = false }) {
                 Max price
               </span>
               <span className="text-sm font-black text-[#f59e0b]">
-                {formatCurrency(effectiveMaxPrice)}
+                {formatCurrency(effectiveMaxPrice, usdToInrRate)}
               </span>
             </div>
             <input

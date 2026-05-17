@@ -6,6 +6,7 @@ import EmptyState from '../components/EmptyState'
 import OrderSummary from '../components/OrderSummary'
 import { selectCartItems } from '../features/cart/cartSelectors'
 import { placeOrder } from '../features/cart/cartSlice'
+import { selectUsdToInrRate } from '../features/currency/currencySlice'
 import { formatCurrency, getDiscountedPrice } from '../utils/formatters'
 
 const initialForm = {
@@ -23,6 +24,7 @@ export default function CheckoutPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const items = useSelector(selectCartItems)
+  const usdToInrRate = useSelector(selectUsdToInrRate)
   const [form, setForm] = useState(initialForm)
 
   if (!items.length) {
@@ -41,7 +43,7 @@ export default function CheckoutPage() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    dispatch(placeOrder(form))
+    dispatch(placeOrder({ customer: form, exchangeRate: usdToInrRate }))
     navigate('/success')
   }
 
@@ -161,7 +163,10 @@ export default function CheckoutPage() {
                     </p>
                   </div>
                   <p className="text-sm font-black text-slate-50">
-                    {formatCurrency(getDiscountedPrice(item) * item.quantity)}
+                    {formatCurrency(
+                      getDiscountedPrice(item) * item.quantity,
+                      usdToInrRate,
+                    )}
                   </p>
                 </div>
               ))}
